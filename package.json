@@ -1,0 +1,35 @@
+{
+  "name": "kr-melnikov-dmitry-2",
+  "version": "1.0.0",
+  "description": "Project 2 of Melnikov Dmitry",
+  "main": "gulpfile.js",
+  "author": "Melnikov Dmitry <http://t.me/@Evidens>",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync": "^2.26.5",
+    "del": "^4.1.1",
+    "g": "^2.0.1",
+    "global": "^4.4.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-file-include": "^2.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.2",
+    "node-sass": "^4.12.0",
+    "path": "^0.12.7",
+    "yarn": "^1.22.4"
+  },
+  "scripts": {
+    "start": "node ./node_modules/gulp/bin/gulp.js start",
+    "build": "node ./node_modules/gulp/bin/gulp.js build"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "gulp-babel": "^8.0.0"
+  }
+}

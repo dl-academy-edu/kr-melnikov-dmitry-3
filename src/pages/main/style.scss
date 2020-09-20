@@ -1,0 +1,18 @@
+
+.content__block__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: rgb(212, 212, 238);
+  padding: 15px 25px;
+  border-radius: 10px;
+}
+
+.content__block__link:hover {
+  opacity: 0.7;
+}
+
+.content__block__link:active {
+  opacity: 0.5;
+}
