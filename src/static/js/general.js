@@ -162,7 +162,7 @@ function checkTelephone(telephone) {
   return telephone.match(/^(\s*)?(\+)?([-_():=+]?\d[- _():=+]?){10,14}(\s*)?$/);
 }
 
-function inputError(input) {
+function inputError(input, button) {
   if (input.hasAttribute("isError")) {
     return;
   }
@@ -170,7 +170,10 @@ function inputError(input) {
   input.classList.add("modal__input_error");
   input.addEventListener("input", () => {
     input.classList.remove("modal__input_error");
-    input.removeAttribute("isError");
+    input.removeAttribute("isError");      
+  if (button.classList.contains("button_bad")){
+    button.classList.remove("button_bad");
+  }
   });
 }
 
@@ -222,7 +225,7 @@ function setFormErrors(form, errors) {
   let button = form.querySelector(".modal__button");
   for (let input of inputs) {
     if (errors[input.name] && input.type !== "checkbox" && input.type !== "radio") {
-      inputError(input);
+      inputError(input, button);
       textError(input, errors[input.name]);
     }
     if (!errors[input.name]) {
@@ -230,20 +233,13 @@ function setFormErrors(form, errors) {
       textSuccess(input);
     }
   }
-  // if (errors || errors !== {}) {
-  //   button.classList.add("button_bad");
-  // } 
-  // if (errors === {}) {
-  //   button.classList.add("button_good");
-  // } else {
-  //   button.classList.add("button_bad");
-  // } 
-  console.log(errors);
-  if (errors !== {}) {
-    button.classList.add("button_bad");
-  } else {
-    button.classList.add("button_good");
-  } 
+    let inputsError = [];
+    inputsError = [...form.querySelectorAll(".modal__input_error")];
+      if(inputsError.length === 0){
+        button.classList.add("button_good");
+      } else {
+        button.classList.add("button_bad");
+      } 
 }
 
 function setFormClear(form) {

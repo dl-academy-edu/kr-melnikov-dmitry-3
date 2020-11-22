@@ -35,7 +35,6 @@ logout.addEventListener("click", () => {
 		const data = getFormData(e.target);
 		const errors = validateData(data);
 		setFormErrors(changePasswordForm, errors);
-		console.log(errors);
 		fetchData({
 			method: "PUT",
 			body: body,
@@ -126,21 +125,18 @@ logout.addEventListener("click", () => {
 (function() {
 	const deleteButton = document.querySelector(".delete-profile_js");
 	const token = localStorage.getItem('token');
+	const userId = localStorage.getItem("userId");
 
   deleteButton.addEventListener("click", (e) => {
-    e.preventDefault();
-
+		e.preventDefault();
+		isLoading = true;
     fetchData({
       method: "DELETE",
       url: `/api/users/${userId}`,
       headers: {       
         "x-access-token": token, 
       }
-    })
-  
-    .then(function (res) {
-      return res.json();
-    })
+		})
 		.then(res => res.json())
 		.then(res => {
 			if (res.success){
@@ -151,6 +147,7 @@ logout.addEventListener("click", () => {
       } else {
         throw console.log("Error of Delete User");
       }
+			isLoading = false;
     })
   })
 })();
@@ -246,7 +243,7 @@ function changeUserData(e) {
 		isLoading = false;
 	})
 	.catch(() => {
-		console.error(`Error of change data of User${userId}`)
+		console.error(`Error of change data of User`)
 		setFormErrors(e.target, err.errors);
 		console.error(err.errors);
 		isLoading = false;
