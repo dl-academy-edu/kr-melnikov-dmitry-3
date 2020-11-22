@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+    />
+    <link rel="stylesheet" href="/static/fonts/font-face.css" />
+    <link rel="stylesheet" href="/common.css" />
+    <link rel="stylesheet" href="./style.css" />
+
+    <title>Blog</title>
+  </head>
+  <body>
+    @@include('header/index.html')
+    <main>
+      <section class="filter container">
+        <h1 class="filter__title h1">My blog</h1>
+        <form class="filter__form" name="filter">
+          <div class="filter__form__content">
+            <!-- tags -->
+            <fieldset class="filter__form__fieldset filter__form__fieldset_tags">
+              <legend class="filter__form__legend text_small">Tags</legend>
+              <div class="filter__form__tags-box tags_js"></div>
+            </fieldset>
+            <!-- views -->
+            <fieldset
+              class="filter__form__fieldset filter__form__fieldset_views"
+            >
+              <legend class="filter__form__legend text_small">Views</legend>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="views"
+                  value="100-500"
+                  checked
+                />
+                <span class="filter__form__radio-text text">100-500</span>
+              </label>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="views"
+                  value="500-1000"
+                />
+                <span class="filter__form__radio-text text">500-1000</span>
+              </label>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="views"
+                  value="1000-2000"
+                />
+                <span class="filter__form__radio-text text">1000-2000</span>
+              </label>
+            </fieldset>
+            <!-- comments -->
+            <fieldset
+              class="filter__form__fieldset filter__form__fieldset_comments"
+            >
+              <legend class="filter__form__legend text_small">Comments</legend>
+              <label class="filter__form__checkbox-label">
+                <input
+                  class="filter__form__checkbox hidden"
+                  type="checkbox"
+                  name="commentsCount"
+                  value="0"
+                />
+                <span class="filter__form__checkbox-text text">0</span>
+              </label>
+              <label class="filter__form__checkbox-label">
+                <input
+                  class="filter__form__checkbox hidden"
+                  type="checkbox"
+                  name="commentsCount"
+                  value="0-1"
+                />
+                <span class="filter__form__checkbox-text text">0-1</span>
+              </label>
+              <label class="filter__form__checkbox-label">
+                <input
+                  class="filter__form__checkbox hidden"
+                  type="checkbox"
+                  name="commentsCount"
+                  value="1-50"
+                />
+                <span class="filter__form__checkbox-text text">1-50</span>
+              </label>
+            </fieldset>
+            <!-- how show -->
+            <fieldset class="filter__form__fieldset filter__form__fieldset_show">
+              <legend class="filter__form__legend text_small">How show?</legend>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="show"
+                  value="5"
+                  checked
+                />
+                <span class="filter__form__radio-text text">show 5</span>
+              </label>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="show"
+                  value="10"
+                />
+                <span class="filter__form__radio-text text">show 10</span>
+              </label>
+            </fieldset>
+            <!-- sort by -->
+            <fieldset class="filter__form__fieldset filter__form__fieldset_sort">
+              <legend class="filter__form__legend text_small">Sort by</legend>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="sort"
+                  value="date"
+                  checked
+                />
+                <span class="filter__form__radio-text text">date</span>
+              </label>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="sort"
+                  value="title"
+                />
+                <span class="filter__form__radio-text text">title</span>
+              </label>
+              <label class="filter__form__radio-label">
+                <input
+                  class="filter__form__radio hidden"
+                  type="radio"
+                  name="sort"
+                  value="views"
+                />
+                <span class="filter__form__radio-text text">views</span>
+              </label>
+            </fieldset>
+            <!-- reset -->
+            <fieldset
+              class="filter__form__fieldset filter__form__fieldset_reset"
+            >
+              <legend
+                class="filter__form__legend filter__form__legend_reset text_small"
+              >
+                reset form
+              </legend>
+              @@include('buttons/index.html', { 
+                "type": "reset", 
+                "text": "Reset", 
+                "class": "filter__form__button"
+              })
+            </fieldset>
+          </div>
+          <div class="filter__form__search search">
+            <input class="search__input" type="text" name="title" />
+            @@include('buttons/index.html', { 
+              "type": "submit", 
+              "text": "Search", 
+              "class": "search__button" 
+            })
+          </div>
+        </form>
+      </section>
+      <section class="blog">
+        <title class="blog__title hidden">Posts of blog</title>
+        <div class="blog__container container">
+          <div class="blog__content">
+            <ul class="blog__list posts_js"></ul>
+            <div class="blog__pagination">
+              @@include('buttons/index.html', {
+                "type": "switch_disabled",
+                "direction": "left",
+                "class": "blog-previous-page-button_js"
+              })
+              <ul class="blog__pagination__list blog-pagination_js">
+              </ul>
+              @@include('buttons/index.html', {
+                "type": "switch",
+                "direction": "right",
+                "class": "blog-next-page-button_js"
+              })
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('footer/index.html')
+    <script src="/static/js/general.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

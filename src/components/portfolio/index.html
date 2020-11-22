@@ -1,0 +1,35 @@
+<section class="portfolio">
+	<div class="container__portfolio container">
+		<div class="portfolio__content">
+			<h2 class="portfolio__title h2">Portfolio</h2>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+            @@include('slider/slide.html', {
+              "class": "swiper-slide",  
+              "img": "main",
+              "res": ".png",
+              "name": "Main page"
+              })
+          @@include('slider/slide.html', {
+            "class": "swiper-slide",  
+            "img": "blog",
+            "res": ".png",
+            "name": "Blog page"
+            })
+            @@include('slider/slide.html', {
+            "class": "swiper-slide",  
+            "img": "toys",
+            "res": ".png",
+            "name": "Toys page"
+            }) 
+		    </div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+      </div>
+      <div class="portfolio__bottom">
+        <a class="portfolio__bottom__title" href="#">Learning site for DL Academy courses</a>
+        <p class="portfolio__bottom__text text_small">A simple multi-page static site. The design layout was in Figma. HTML and CSS were used. The site is responsive and cross-browser, but without adding interactivity via JavaScript.</p>
+      </div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,82 @@
+<footer class="footer">    
+  @@include('buttons/index.html', {
+    "type": "burger"
+  })
+  @@include('buttons/index.html', {
+    "type": "to-top"
+  })  
+  @@include('modal/index.html')
+  <div class="footer__content container">
+    <h2 class="footer__title">Contacts</h2>
+    <p class="footer__invitate">
+      Want to know more or just chat? You are welcome!
+    </p>
+    @@include('buttons/index.html', {
+      "type": "button",
+      "style": "fill",
+      "text": "Send message",
+      "class": "footer__button-send message_js"
+    })
+    <ul class="footer__contacts">
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Instagram",
+          "class": "footer__contacts__link",
+          "href": "#"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Vk",
+          "class": "footer__contacts__link",
+          "href": "#"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Telegram",
+          "class": "footer__contacts__link",
+          "href": "#"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Mail",
+          "class": "footer__contacts__link",
+          "href": "#"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "GitHub",
+          "class": "footer__contacts__link",
+          "href": "#"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Phone",
+          "class": "footer__contacts__link",
+          "href": "#"
+        })
+      </li>
+    </ul>
+    <div class="footer__description">
+      <p class="footer__description__text">Design by</p>
+      <a class="footer__description__link" href="#">DL Academy</a>
+      <p class="footer__description__text">Program code from Antonina</p>
+    </div>
+  </div>
+</footer>

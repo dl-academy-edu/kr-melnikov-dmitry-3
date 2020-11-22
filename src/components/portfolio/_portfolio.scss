@@ -1,0 +1,150 @@
+@import "../mixins";
+@import "../colors";
+@import "../vars";
+
+.portfolio {
+  background-color: $c_wild-sand;
+
+  &__content {
+    position: relative;
+    padding: 60px 0;
+
+    @include media($media_mobile, $media_tablet) {
+      padding: 61px 0 60px 0;
+    }
+
+    @include media(0, $media_mobile) {
+      padding: 40px 0;
+    }
+  }
+
+  &__title {
+    margin-bottom: 50px;
+
+    text-align: center;
+
+    @include media(0, $media_mobile) {
+      margin-bottom: 31px;
+    }
+  }
+
+  &__bottom {
+    padding: 31px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgba($c_black, 0.85);
+
+    content: "";
+
+    @include media(0, $media_mobile) {
+      top: 423px;
+
+      padding: 20px 15px;
+    }
+
+    &__title {
+      margin-bottom: 17px;
+      display: inline-block;
+
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 21px;
+      color: $c_white;
+
+      border-bottom: 1px dashed $c_white;
+      outline: none;
+
+      transition: $tr_duration $tr_easing;
+
+      @include media(0, $media_mobile) {
+        max-width: 159px;
+      }
+
+      @include media(0, $media_mobile) {
+        margin-bottom: 16px;
+
+        text-align: center;
+      }
+
+      &:hover,
+      &:focus {
+        border-bottom: 1px solid $c_white;
+      }
+    }
+
+    &__text {
+      max-width: 400px;
+      color: $c_white;
+    }
+  }
+}
+
+.swiper-container {
+  height: 604px;
+}
+
+.swiper-slide {
+  @include media($media_mobile-medium, 0) {
+    overflow-y: auto;
+  }
+  // &::-webkit-scrollbar {
+  // 	width: 0;
+  // }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  height: auto;
+  width: auto;
+  outline: none;
+  transition: opacity $tr_duration $tr_easing;
+
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
+}
+
+.swiper-button-prev {
+  left: 30px;
+
+  @include media(0, $media_mobile) {
+    left: 15px;
+  }
+}
+
+.swiper-button-next {
+  right: 30px;
+
+  @include media(0, $media_mobile) {
+    right: 15px;
+  }
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  width: 25px;
+  height: 42px;
+
+  background: url(/static/images/arrow.svg) center center no-repeat;
+  background-size: cover;
+
+  content: "";
+}
+
+.swiper-button-next:after {
+  transform: rotate(180deg);
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  opacity: 0.1;
+
+  transition: opacity $tr_duration $tr_easing;
+}

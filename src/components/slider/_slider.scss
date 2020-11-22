@@ -1,0 +1,76 @@
+@import "../mixins";
+@import "../colors";
+@import "../vars";
+
+.slider {
+  margin: 36px 0 26px;
+
+  	@include media($media_mobile, $media_tablet) {
+  		margin: 36px 0;
+  	}
+
+  &__wrapper {
+    overflow: hidden;
+  }
+
+  &__inner-wrapper {
+    display: flex;
+    height: 100%;
+  }
+
+  &__control {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__slide {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	&__pagination {
+		display: flex;
+	
+		@include media(0, $media_mobile) {
+			margin-top: 15px;
+		}
+	
+		&__item {
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			padding: 0;
+			border: none;
+			outline: none;
+			cursor: pointer;
+
+			background-color: $c_mercury;
+	
+			transition: background-color $tr_duration $tr_easing, opacity $tr_duration $tr_easing;
+	
+			&:not(:last-child) {
+				margin-right: 7px;
+			}
+			
+			&:not(.slider__pagination__item_active):hover, 
+			&:not(.slider__pagination__item_active):focus {
+				background-color: $c_gray;
+			}
+	
+			&_active {
+				background-color: $c_black-default;
+
+				&:hover,
+				&:focus {
+					opacity: .8;
+				}
+			}
+		}
+	}
+}
+
+

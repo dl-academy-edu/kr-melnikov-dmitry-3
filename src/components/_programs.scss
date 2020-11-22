@@ -1,3 +1,10 @@
+.prog-block {
+  max-width: 50px;
+  position: absolute;
+  top: 300px;
+  left: 10px;
+  z-index: 1;
+}
 .programs {
 &-header {
   display: flex;

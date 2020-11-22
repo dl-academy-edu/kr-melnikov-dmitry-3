@@ -1,0 +1,270 @@
+@import "../mixins";
+@import "../colors";
+@import "../vars";
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+
+  padding: 30px 0;
+  display: none;
+  overflow: scroll;
+
+  background-color: rgba($c_wild-sand, 0.99);
+
+  @include media(0, $media_mobile) {
+    padding: 60px 0;
+  }
+
+  @include media(0, $media_mobile) {
+    background-color: $c_white;
+  }
+
+  &__form {
+    position: relative;
+
+    margin: auto;
+    padding: 36px 38px 38px 38px;
+
+    background-color: $c_white;
+    border: 2.5px solid $c_black;
+
+    &_change-password {
+      width: 370px;
+    }
+
+    &_change-data {
+      width: 680px;
+    }
+
+    &_signin {
+      width: 370px;
+    }
+
+    &_register {
+      width: 680px;
+    }
+
+    &_message {
+      width: 680px;
+    }
+
+    @include media(0, $media_mobile) {
+      padding: 0 20px;
+      border: none;
+    }
+  }
+
+  &__cell {
+    display: flex;
+
+    @include media(0, $media_mobile) {
+      display: block;
+    }
+  }
+
+  &__cell-50 {
+    width: 50%;
+
+    @include media(0, $media_mobile) {
+      width: 100%;
+    }
+
+    &:first-child {
+      margin-right: 20px;
+
+      @include media(0, $media_mobile) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__label {
+    width: 100%;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  &__text {
+    width: 100%;
+    margin-bottom: 6px;
+    display: inline-block;
+
+    &_error{
+      margin-bottom: 0;
+      margin-top: 10px;
+
+      color: $c_pomegranade;
+    }
+
+    &_success {
+      margin-bottom: 0;
+      margin-top: 10px;
+
+      color: $c_malachite;
+    }
+    &_accent {
+      &::after {
+        content: "*";
+        margin-left: 4px;
+        color: $c_pomegranade;
+      }
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 12px 14px;
+
+    font-size: 18px;
+    line-height: 21px;
+    color: $c_black;
+
+    border: 2.5px solid $c_mercury;
+    outline: none;
+
+    transition: border-color $tr_duration $tr_easing;
+
+    &:hover {
+      border-color: $c_gray;
+    }
+
+    &:focus {
+      border-color: $c_black;
+    }
+
+    &_error {
+      border-color: $c_pomegranade;
+
+      &:hover,
+      &:focus {
+        border-color: rgba($c_pomegranade, 0.5);
+      }
+    }
+
+    &_success {
+      border-color: $c_malachite;
+
+      &:hover,
+      &:focus {
+        border-color: rgba($c_malachite, 0.5);
+      }
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 12px 14px;
+
+    font-size: 18px;
+    line-height: 21px;
+    color: $c_black;
+
+    border: 2.5px solid $c_mercury;
+    outline: none;
+
+    transition: border-color $tr_duration $tr_easing;
+
+    &:hover {
+      border-color: $c_gray;
+    }
+
+    &:focus {
+      border-color: $c_black;
+    }
+  }
+
+  &__checkbox {
+
+    &:focus ~ .modal__checkbox-text  {
+      cursor: pointer;
+      opacity: 0.5;
+    }
+    
+    &-text {
+      display: block;
+      position: relative;
+      width: 90%;
+      margin-left: 34px;
+
+      font-size: 14px;
+      line-height: 16px;
+
+      opacity: 0.1;
+
+      transition: opacity $tr_duration $tr_easing;
+
+      &:hover {
+        cursor: pointer;
+				opacity: 0.5;
+			}
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -34px;
+        bottom: 0px;
+
+        width: 19px;
+        height: 19px;
+        border: 2.5px solid $c_black;
+        border-radius: 3px;
+
+      }
+    }
+
+    &:checked ~ .modal__checkbox-text::after {
+      content: "";
+      position: absolute;
+      bottom: 3px;
+      left: -31px;
+
+      width: 15px;
+      height: 15px;
+
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M2 6.75L5.91301 12.77C6.20128 13.2135 6.85836 13.1893 7.11327 12.7259L13.425 1.25' stroke='%23070707' stroke-width='2.5' stroke-linecap='round'/%3e%3c/svg%3e");        // background-repeat: no-repeat;
+      
+    }
+
+    &:checked ~ .modal__checkbox-text {
+      opacity: 1;
+    }
+  }
+
+  button[type="submit"] {
+    padding: 7.5px 17.5px;
+  }
+
+  &__close {
+    position: absolute;
+    top: -4px;
+    right: -38px;
+
+    padding: 0;
+
+    line-height: 0;
+
+    opacity: 0.5;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    transition: opacity $tr_duration $tr_easing;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+
+    @include media(0, $media_mobile) {
+      top: -46px;
+      left: 20px;
+    }
+  }
+}

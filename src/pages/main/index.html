@@ -3,11 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+  />
+  <link rel="stylesheet" href="/static/fonts/font-face.css" />
+  <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/common.css" />
   <link rel="stylesheet" href="./style.css" />
+
   <title>Main</title>
 </head>
 <body>
-    <a class="programs-header__link" href="/pages/0programs/index.html">Программы</a>
+  @@include('header/index.html')
+  <main> 
+
+
+    <div class="prog-block">
+      <a class="programs-header__link" href="/pages/0programs/index.html">Программы</a>
+    </div>
+    
+
+    <section class="developer container">
+      <h1 class="developer__title h1">
+        Antonina Antoninovna
+      </h1>
+      <p class="developer__description text">
+        Future front-end developer
+        23 years old, Tolyatti
+      </p>
+      @@include('slider/index.html')
+    </section>    
+		@@include('about/index.html')
+		@@include('skills/index.html')
+		@@include('portfolio/index.html')
+  </main>
+  @@include('footer/index.html')
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/js/general.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>

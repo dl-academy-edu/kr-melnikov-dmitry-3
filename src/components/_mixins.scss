@@ -1,5 +1,5 @@
 //MEDIA
-@mixin media_interval($min, $max) {
+@mixin media($min, $max) {
   @if $max == 0 {
     @media (min-width: $min) {
       @content;

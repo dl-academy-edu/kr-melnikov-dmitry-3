@@ -1,0 +1,95 @@
+@import "../colors";
+@import "../vars";
+@import "../mixins";
+
+.header {
+  margin-bottom: 40px;
+  transition: left $tr_duration $tr_easing;
+
+  @include media(0, $media_mobile-small) {
+    height: 100vh;
+    min-height: 550px;
+    position: fixed;
+    left: 200%;
+    z-index: 2;
+    width: 100%;
+    background-color: rgba($c_wild-sand, 0.99);
+    
+    &__mobile-open {
+      left: 0;
+    }
+  }
+
+  &-nav {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid $c_gray;
+    display: flex;
+    align-items: center;
+
+    @include media(0, $media_mobile-small) {
+      padding-top: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+      height: 100%;
+    }
+
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+      margin-top: auto; 
+      margin-bottom: auto; 
+
+      @include media(0, $media_mobile-small) {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      &__item {  
+        &:first-child {
+          @include media($media_mobile-small, 0) {
+            margin-right: auto;   
+          }
+        }
+      }
+    }
+
+    &__link {
+      margin-left: 20px;          
+
+      @include media(0, $media_mobile-small) {
+        margin: 20px 0;   
+      }
+
+      &_first {
+        @include media($media_mobile-small, 0) {
+          margin-left: 0;   
+        }
+      }
+    }
+  }
+
+  &__button-close-menu {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    
+    @include media($media_mobile-small, 0) {
+      display: none;         
+    }
+
+    & rect {
+      transition: fill $tr_duration $tr_easing;
+    }
+
+    &:hover rect,
+    &:focus rect{
+      fill: $c_gray;
+    }
+  }
+}

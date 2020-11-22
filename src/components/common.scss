@@ -1,10 +1,175 @@
 // Подключение компонентов
-@import "./main";
 @import "./vars";
 @import "./mixins";
 @import "./colors";
 
+// Подключение стилей
 
+@import "./buttons/buttons";
+@import "./header/header";
+@import "./footer/footer";
 
+@import "./slider/slider";
+@import "./about/about";
+@import "./skills/skills";
+@import "./portfolio/portfolio";
+@import "./modal/modal";
 @import "./programs";
 
+body {
+  font-family: "Gilroy", "Arial", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+ul, ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+img {
+  max-width: 100%;
+  line-height: 0;
+  height: auto;
+}
+
+.container {
+  min-width: 200px;
+  max-width: 1020px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include media($media_mobile, $media_tablet) {
+		padding-left: 60px;
+		padding-right: 60px;
+	}
+
+  @include media(0, $media_mobile) {
+		padding-left: 20px;
+		padding-right: 20px;
+  }
+}
+
+.hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;  
+}
+
+.h1 {
+  font-style: normal;
+  font-weight: bold;
+	font-size: 47px;
+	line-height: 57px;
+	color: $c_black;
+}
+
+.h2 {
+  font-style: normal;
+  font-weight: bold;
+	font-size: 34px;
+	line-height: 41px;
+	color: $c_black;
+}
+
+.h3 {
+  font-style: normal;
+  font-weight: bold;
+	font-size: 24px;
+	line-height: 29px;
+	color: $c_black;
+}
+
+.text {
+  font-style: normal;
+  font-weight: 500; 
+  font-size: 18px;
+  line-height: 21px;
+  color: $c_black;
+
+  &_gray {
+    color: $c_gray;
+  }
+  
+  &_small {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+	&_bold {
+		font-weight: 700;
+	}
+}
+
+.overflow_js {
+  overflow: hidden;
+}
+
+.show_js {
+	display: flex;
+}
+
+.loader { 
+  // position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+
+  &-wrapper {
+    margin: auto;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-delay: 1s;
+  }
+
+  &-line {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border-right: 5px dotted $c_gray;
+    border-bottom: 5px dashed $c_gray;
+    background-color: $c_mercury;
+    animation: loading 1s linear infinite;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }  
+  100% {
+    transform: rotate(360deg);
+  }
+}

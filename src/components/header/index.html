@@ -1,0 +1,63 @@
+<header class="header container header_js">
+  <button class="header__button-close-menu button-close-menu_js button-transparent">
+    <svg class="header__mobile-menu-close__svg" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3.37256" width="32" height="4" rx="2" transform="rotate(45 3.37256 0)" fill="#070707"/>
+      <rect x="0.543945" y="22.6289" width="32" height="4" rx="2" transform="rotate(-45 0.543945 22.6289)" fill="#070707"/>
+      </svg>      
+  </button>
+  <nav class="header-nav">
+  <ul class="header-nav__list">
+    <li class="header-nav__list__item">
+      @@include('buttons/index.html', {
+        "type": "link",
+        "style": "gray",
+        "text": "Home",
+        "class": "header-nav__link header-nav__link_first",
+        "href": "/"
+      })
+    </li>
+    <li class="header-nav__list__item">
+      @@include('buttons/index.html', {
+        "type": "link",
+        "style": "gray",
+        "text": "My blog",
+        "class": "header-nav__link",
+        "href": "/pages/blog/"
+      })
+    </li>
+    <li class="header-nav__list__item">
+      @@include('buttons/index.html', {
+        "type": "button",
+        "style": "gray",
+        "text": "Sign in",
+        "class": "header-nav__link signin_js"
+      })
+    </li>
+    <li class="header-nav__list__item">
+      @@include('buttons/index.html', {
+        "type": "button",
+        "style": "gray",
+        "text": "Register",
+        "class": "header-nav__link register_js"
+      })
+    </li>
+    <li class="header-nav__list__item">
+      @@include('buttons/index.html', {
+        "type": "link",
+        "style": "gray",
+        "text": "My profile",
+        "class": "header-nav__link profile_js",
+        "href": "/pages/profile/"
+      })
+    </li>
+    <li class="header-nav__list__item">
+      @@include('buttons/index.html', {
+        "type": "button",
+        "style": "gray",
+        "text": "Logout",
+        "class": "header-nav__link logout_js"
+      })
+    </li>
+  </ul>
+</nav>
+</header>

@@ -1,0 +1,74 @@
+<div class="modal modal-change-password_js">
+	<form class="modal__form modal__form_change-password" name="change-password">
+		<label class="modal__label">
+			<span class="modal__text modal__text_accent text-small">Old password</span>
+			<input class="modal__input" type="password" name="oldPassword">
+		</label>
+		<label class="modal__label">
+			<span class="modal__text modal__text_accent text-small">New password</span>
+			<input class="modal__input" type="password" name="newPassword">
+		</label>
+		<label class="modal__label">
+			<span class="modal__text modal__text_accent text-small">Repeat new password</span>
+			<input class="modal__input" type="password" name="newPasswordRepeat">
+		</label>
+		@@include('buttons/index.html', {
+			"type": "submit",
+			"text": "Change password",
+			"class": "modal__button"
+		})
+		<button class="modal__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="modal modal-change-data_js">
+	<form class="modal__form modal__form_change-data" name="change-data">
+		<label class="modal__label">
+			<span class="modal__text text-small">Email</span>
+			<input class="modal__input" type="email" name="email">
+		</label>
+		<div class="modal__col">
+			<div class="modal__col-50">
+				<label class="modal__label">
+					<span class="modal__text text-small">Name</span>
+					<input class="modal__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="modal__col-50">
+				<label class="modal__label">
+					<span class="modal__text text-small">Surname</span>
+					<input class="modal__input" type="text" name="surname">
+				</label>
+			</div>
+		</div>
+		<div class="modal__col">
+			<div class="modal__col-50">
+				<label class="modal__label">
+					<span class="modal__text text-small">Location</span>
+					<input class="modal__input" type="text" name="location">
+				</label>
+			</div>
+			<div class="modal__col-50">
+				<label class="modal__label">
+					<span class="modal__text text-small">Age</span>
+					<input class="modal__input" type="text" name="age">
+				</label>
+			</div>
+		</div>
+		<div class="modal__col">
+			<div class="modal__col-50">
+				<label class="modal__label avatar__label">
+					<span class="modal__text text-small avatar__text">Profile picture</span>
+					<input class="modal__input avatar__input-true hidden avatar__input_js" type="file" accept=".jpg, .jpeg, .png, .gif, .bmp" name="avatar">
+					<span class="avatar__input avatar-inner-text_js">Choose a picture...</span>
+				</label>
+			</div>
+		</div>
+		@@include('buttons/index.html', {
+			"type": "submit",
+			"text": "Submit changes",
+			"class": "modal__button"
+		})
+		<button class="modal__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
+	</form>
+</div>
