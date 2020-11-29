@@ -114,7 +114,7 @@
 			<textarea class="modal__textarea" name="message"></textarea>
 		</label>
 		<label class="modal__label">
-			<input class="modal__checkbox checkbox_js hidden" type="checkbox" name="accept">
+			<input class="modal__checkbox checkbox_js hidden" type="checkbox" name="accept" value="confirm">
 			<span class="modal__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
 		</label>
 		@@include('buttons/index.html', {
@@ -125,3 +125,4 @@
 		<button class="modal__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
 	</form>
 </div>
+@@include('modal/server-answer.html')

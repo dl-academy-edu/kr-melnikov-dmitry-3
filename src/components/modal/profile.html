@@ -20,7 +20,6 @@
 		<button class="modal__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
 	</form>
 </div>
-
 <div class="modal modal-change-data_js">
 	<form class="modal__form modal__form_change-data" name="change-data">
 		<label class="modal__label">
@@ -72,3 +71,15 @@
 		<button class="modal__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
 	</form>
 </div>
+<div class="modal modal_delete-profile_js">
+	<form class="modal__form" name="delete-profile">
+			<p class="form__text">Are you sure you want to delete your account?</p>
+			@@include('buttons/index.html', {
+				"type": "submit",
+				"class": "modal__button delete-profile-accept delete-profile-accept_js",
+				"text": "Delete account"
+				})
+				<button class="modal__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
+	</form>
+</div>
+@@include('modal/server-answer.html')

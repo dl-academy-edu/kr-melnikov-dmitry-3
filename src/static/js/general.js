@@ -31,7 +31,9 @@ function modalOpen(button, modal, form) {
     button.addEventListener("click", function () {
       modal.classList.add("show_js");
       body.classList.add("overflow_js");
-      input.focus();
+      if (input) {
+        input.focus();
+      }
     });
     closeButton.addEventListener("click", function (e) {
       e.preventDefault();
@@ -181,27 +183,37 @@ function inputSuccess(input) {
   if (input.hasAttribute("isSuccess")) {
     return;
   }
-  input.setAttribute("isSuccess", "");
-  input.classList.add("modal__input_success");
-  input.addEventListener("input", () => {
+  if (input.hasAttribute("isError")) {
+    return;
+  }  
+  if (input.type !== "checkbox" && input.type !== "radio") {
+    input.setAttribute("isSuccess", "");
+    input.classList.add("modal__input_success");
+    input.addEventListener("input", () => {
     input.classList.remove("modal__input_success");
     input.removeAttribute("isSuccess");
-  });
+    });
+  }  
 }
 
 function textSuccess(input) {
   if (input.hasAttribute("isSuccessText")) {
     return;
   }
-  input.setAttribute("isSuccessText", "");
-  const message = document.createElement('span');
-  message.classList.add('modal-text_js', 'modal__text', 'modal__text_success', 'text_small');
-  message.innerText = "All right";
-  input.insertAdjacentElement("afterend", message);
-  input.addEventListener("input", () => {
+  if (input.hasAttribute("isErrorText")) {
+    return;
+  } 
+  if (input.type !== "checkbox" && input.type !== "radio") {
+    input.setAttribute("isSuccessText", "");
+    const message = document.createElement('span');
+    message.classList.add('modal-text_js', 'modal__text', 'modal__text_success', 'text_small');
+    message.innerText = "All right";
+    input.insertAdjacentElement("afterend", message);
+    input.addEventListener("input", () => {
     message.remove();
     input.removeAttribute("issuccessText");
-  });
+    });
+  }
 }
 
 function textError(input, error) {
@@ -357,8 +369,10 @@ function setValueToForm(form, data) {
 		const data = getFormData(e.target);
 		const errors = validateData(data);
 		setFormErrors(messageForm, errors);
-    // console.log(errors);
-    sendMessage(e);
+    console.log(errors); 
+    if (Object.keys(errors).length === 0) {
+      sendMessage(e);
+    } else {return}
 	})
 
 	function sendMessage(e) {
@@ -384,15 +398,22 @@ function setValueToForm(form, data) {
 		.then(res => { return res.json(); })
 		.then(res => {
 			if (res.success) {
-        console.log("Сообщение успешно отправлено");
-        setTimeout(modalClose(messageButton, messageModal, messageForm), 2000);
+        console.log("Сообщение успешно отправлено");        				
+				setTimeout(function () {
+					modalClose(messageButton, messageModal, messageForm);
+					sendResult(document.querySelector(".modal-success_js"));
+				}, 2000);
 			} else {
-				throw res;
+        setTimeout(function () {
+					modalClose(messageButton, messageModal, messageForm);
+          sendResult(document.querySelector(".modal-error_js"));
+				  throw res;
+				}, 2000);        
 			}
 			isLoading = false;
 		})
 		.catch(err => {
-				// setFormErrors(e.target, err.errors);
+				setFormErrors(e.target, err.errors);
 				console.error(err.errors);
 			  isLoading = false;
 		})
@@ -411,7 +432,7 @@ function setValueToForm(form, data) {
 		if(!checkTelephone(data.phone)) {
 			errors.phone = "Please enter a valid phone number";
 		}
-    if(data.accept[0] !== "yes") {
+    if(data.accept[0] !== "confirm") {
       errors.accept = "You need to consent";
     }
 		return errors;
@@ -435,11 +456,13 @@ function setValueToForm(form, data) {
   
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      // const data = getFormData(e.target);
-      // const errors = validateData(data);
-      // setFormErrors(registerForm, errors);
-      // console.log(errors);
-      registerUser(e);
+      const data = getFormData(e.target);
+      const errors = validateData(data);
+      setFormErrors(registerForm, errors);
+      console.log(errors);
+      if (Object.keys(errors).length === 0) {
+        registerUser(e);
+      } else {return}
     })
 
     function registerUser(e) {
@@ -461,11 +484,18 @@ function setValueToForm(form, data) {
           return res.json();
       })
       .then(res => {
-        if (res.success){
-          console.log("Пользователь создан: \n" + JSON.stringify(res.data, null, 2))
-          setTimeout(modalClose(registerButton, registerModal, registerForm), 2000);
+        if (res.success){      				
+          setTimeout(function () {
+            console.log("Пользователь создан: \n" + JSON.stringify(res.data, null, 2))  
+            modalClose(registerButton, registerModal, registerForm);
+            sendResult(document.querySelector(".modal-success_js"));
+          }, 2000);
         } else {
-          throw res;
+          setTimeout(function () {
+            modalClose(registerButton, registerModal, registerForm);
+            sendResult(document.querySelector(".modal-error_js"));
+            throw res;
+          }, 2000);
         }
         isLoading = false;
       })
@@ -498,7 +528,7 @@ function setValueToForm(form, data) {
       if(isNaN(data.age) || data.age === "") {
         errors.age = "Please enter your age";
       }
-      if(data.accept[0] !== "yes") {
+      if(data.accept[0] !== "confirm") {
         errors.accept = "You need to consent";
       }
       return errors;
@@ -517,11 +547,13 @@ function setValueToForm(form, data) {
   
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    // const data = getFormData(e.target);
-    // const errors = validateData(data);
-    // setFormErrors(loginForm, errors);
-    // console.log(errors);
-    loginUser(e);
+    const data = getFormData(e.target);
+    const errors = validateData(data);
+    setFormErrors(loginForm, errors);
+    console.log(errors);
+    if (Object.keys(errors).length === 0) {
+      loginUser(e);
+    } else {return}
   })
 
 function loginUser(e) {
@@ -544,9 +576,12 @@ function loginUser(e) {
     if (res.success){
       updateToken(res.data);
       updateState(); 
-      console.log("Вход выполнен, ID пользователя:" + res.data.userId);
-      setTimeout(modalClose(loginButton, loginModal, loginForm), 2000);
+      modalClose(loginButton, loginModal, loginForm);
+      console.log("Вход выполнен, ID пользователя:" + res.data.userId);      
+      window.location.pathname = "/pages/profile/index.html";
     } else {
+      modalClose(loginButton, loginModal, loginForm);
+      sendResult(document.querySelector(".modal-error_js"));
       throw res;
     }
     isLoading = false;
@@ -568,4 +603,23 @@ function loginUser(e) {
     return errors;
     }
 })(); 
+
+//  Result of send form
+function sendResult(modal) {  
+  modal.classList.add("show_js");
+  body.classList.add("overflow_js");
+  let closeButton = modal.querySelector(".modal__close");  
+  
+  closeButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.classList.remove("show_js");
+    body.classList.remove("overflow_js");
+  });
+  window.addEventListener("keydown", function (e) {
+    if (e.code === "Escape" && modal.classList.contains("show_js")) {
+      modal.classList.remove("show_js");
+      body.classList.remove("overflow_js");
+    }
+  });
+}
 

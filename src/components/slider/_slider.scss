@@ -19,10 +19,18 @@
   }
 
   &__control {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+		align-items: center;
+		
+		@include media($media_mobile, 800px) {
+			margin-top: 40px;
+		} 
+		
+		@include media(0, $media_mobile) {
+			margin-top: 30px;
+  	} 
   }
 
   &__slide {

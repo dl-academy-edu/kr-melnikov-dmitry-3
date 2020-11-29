@@ -21,7 +21,7 @@
   }
 
   &-nav {
-    padding-top: 30px;
+    padding-top: 35px;
     padding-bottom: 30px;
     border-bottom: 1px solid $c_gray;
     display: flex;
@@ -60,7 +60,9 @@
       margin-left: 20px;          
 
       @include media(0, $media_mobile-small) {
-        margin: 20px 0;   
+        margin: 20px 0;
+        font-size: 34px;
+        line-height: 41px;   
       }
 
       &_first {
@@ -73,8 +75,8 @@
 
   &__button-close-menu {
     position: absolute;
-    top: 50px;
-    right: 10px;
+    top: 49px;
+    right: 7px;
     outline: none;
     border: none;
     background-color: transparent;

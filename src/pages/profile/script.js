@@ -35,34 +35,37 @@ logout.addEventListener("click", () => {
 		const data = getFormData(e.target);
 		const errors = validateData(data);
 		setFormErrors(changePasswordForm, errors);
-		fetchData({
-			method: "PUT",
-			body: body,
-			url: `/api/users/`,
-			headers: {
-				'x-access-token': token,
-			}
-		})
-		.then(res => res.json())
-		.then(res => {
-			if (res.success) {
-				getUserData();
-			} else {
-				throw res;
-			}
-			isLoading = false;
-		})	
-		.catch(() => {
-			console.error(`Error of change password of User${userId}`)
-			// setFormErrors(e.target, err.errors);
-			console.error(err.errors);
-			isLoading = false;
-		})	
-		// .catch(err => {
-		// 	// setFormErrors(e.target, err.errors);
-		// 	console.error(err.errors);
-		// 	isLoading = false;
-		// })
+		if (Object.keys(errors).length === 0) {
+      fetchData({
+				method: "PUT",
+				body: body,
+				url: `/api/users/`,
+				headers: {
+					'x-access-token': token,
+				}
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) {				
+					setTimeout(function () {
+						modalClose(changePasswordButton, changePasswordModal, changePasswordForm);
+						sendResult(document.querySelector(".modal-success_js"));
+						getUserData();
+					}, 2000);
+				} else {				
+					setTimeout(function () {
+						modalClose(changePasswordButton, changePasswordModal, changePasswordForm);
+						sendResult(document.querySelector(".modal-error_js"));
+						throw res;
+					}, 2000);
+				}
+				isLoading = false;
+			})	
+			.catch(() => {
+				console.error(`Error of change password of User${userId}`)
+				isLoading = false;
+			})
+    } else {return}
 	})
 
 	function validateData(data, errors = {}) {
@@ -93,41 +96,86 @@ logout.addEventListener("click", () => {
 
 	changeDataForm.addEventListener("submit", (e) => {
 		e.preventDefault();
-		// const data = getFormData(e.target);
-		// const errors = validateData(data);
-		// setFormErrors(changeDataForm, errors);
-		// console.log(errors);
-		changeUserData(e);
-		modalClose(changeDataButton, changeDataModal, changeDataForm);
+		const data = getFormData(e.target);
+		const errors = validateData(data);
+		setFormErrors(changeDataForm, errors);
+		console.log(errors);
+		if (Object.keys(errors).length === 0) {
+			// changeUserData(e);
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			const token = localStorage.getItem('token');
+			if (!token) {
+				return window.location.pathname = "/index.html"		
+			}
+			const body = getFormData(e.target, {}, 'formData');
+			fetchData({
+				method: "PUT",
+				body: body,
+				url: `/api/users/`,
+				headers: {
+					'x-access-token': token,
+				}
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) {	
+					setTimeout(function () {
+						modalClose(changeDataButton, changeDataModal, changeDataForm);
+						sendResult(document.querySelector(".modal-success_js"));
+						getUserData();
+					}, 2000);			
+				} else {	
+					setTimeout(function () {
+						modalClose(changeDataButton, changeDataModal, changeDataForm);
+						sendResult(document.querySelector(".modal-error_js"));
+						throw res;
+					}, 2000);	
+				}
+				isLoading = false;
+			})
+			.catch(() => {
+				console.error(`Error of change data of User`)
+				setFormErrors(e.target, err.errors);
+				console.error(err.errors);
+				isLoading = false;
+			})
+		}
 	})
-	// function validateData(data, errors = {}) {
-	// 	if(!checkEmail(data.email)) {
-	// 		errors.email = "Please enter a valid email adress";
-	// 	}
-	// 	if(data.name === "") {
-	// 		errors.name = "Please enter your name";
-	// 	}
-	// 	if(data.surname === "") {
-	// 		errors.surname = "Please enter your surname";
-	// 	}
-	// 	if(data.location === "") {
-	// 		errors.location = "Please enter your location";
-	// 	}
-	// 	if(isNaN(data.age) || data.age === "") {
-	// 		errors.age = "Please enter your age";
-	// 	}
-	// 	return errors;
-	// }
+	function validateData(data, errors = {}) {
+		if(!checkEmail(data.email)) {
+			errors.email = "Please enter a valid email adress";
+		}
+		if(data.name === "") {
+			errors.name = "Please enter your name";
+		}
+		if(data.surname === "") {
+			errors.surname = "Please enter your surname";
+		}
+		if(data.location === "") {
+			errors.location = "Please enter your location";
+		}
+		if(isNaN(data.age) || data.age === "") {
+			errors.age = "Please enter your age";
+		}
+		return errors;
+	}
 })();
 
 //  Delete profile 
-
-(function() {
+(function () {
 	const deleteButton = document.querySelector(".delete-profile_js");
+	const	deleteModal = document.querySelector(".modal_delete-profile_js");
+	const deleteForm = document.forms["delete-profile"];
+	const deleteProfileButton = document.querySelector(".delete-profile-accept_js");
 	const token = localStorage.getItem('token');
 	const userId = localStorage.getItem("userId");
 
-  deleteButton.addEventListener("click", (e) => {
+	modalOpen(deleteButton, deleteModal, deleteForm);
+
+  deleteProfileButton.addEventListener("click", (e) => {
 		e.preventDefault();
 		isLoading = true;
     fetchData({
@@ -145,7 +193,7 @@ logout.addEventListener("click", () => {
         console.log("User was successfully deleted");
         window.location.pathname = "/index.html";
       } else {
-        throw console.log("Error of Delete User");
+        throw console.error("Error of Delete User");
       }
 			isLoading = false;
     })
@@ -212,40 +260,4 @@ function refreshUserData(user) {
 	profilePassword.innerText = passwordLength.join('');
 	profileLocation.innerText = user.location;
 	profileAge.innerText = user.age;
-}
-
-function changeUserData(e) {
-	e.preventDefault();
-  if(isLoading) {
-    return;
-  }
-	isLoading = true;
-	const token = localStorage.getItem('token');
-	if (!token) {
-		return window.location.pathname = "/index.html"		
-	}
-	const body = getFormData(e.target, {}, 'formData');
-	fetchData({
-		method: "PUT",
-		body: body,
-		url: `/api/users/`,
-		headers: {
-			'x-access-token': token,
-		}
-	})
-	.then(res => res.json())
-  .then(res => {
-		if (res.success) {
-			getUserData();
-		} else {
-      throw res;
-		}
-		isLoading = false;
-	})
-	.catch(() => {
-		console.error(`Error of change data of User`)
-		setFormErrors(e.target, err.errors);
-		console.error(err.errors);
-		isLoading = false;
-	})
 }

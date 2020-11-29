@@ -57,11 +57,15 @@
     padding: 60px 0 30px 0;
 
     @include media($media_mobile, $media_tablet) {
-      padding: 60px 0 30px 0;
+      padding: 60px 0 20px;
     }
 
-    @include media(0, $media_mobile) {
+    @include media($media_mobile-small, $media_mobile) {
       padding: 40px 0 9px 0;
+    }
+
+    @include media(0, $media_mobile-small) {
+      padding: 40px 0 0 0;
     }
   }
 
@@ -77,13 +81,16 @@
 
   &__text {
     width: 100%;
-    margin-bottom: 42px;
+    margin-bottom: 52px;
     display: inline-block;
 
     text-align: center;
 
-    @include media(0, $media_mobile) {
+    @include media($media_mobile-small, $media_mobile) {
       margin-bottom: 31px;
+    }
+    @include media(0, $media_mobile-small) {
+      margin-bottom: 41px;
     }
   }
 
@@ -105,15 +112,17 @@
 
     @include media($media_mobile, $media_tablet) {
       width: 147px;
+      margin-bottom: 41px;
     }
 
     @include media(0, $media_mobile) {
       width: 130px;
+      margin-bottom: 40px;
     }
   }
 
   &__img {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   &__description {

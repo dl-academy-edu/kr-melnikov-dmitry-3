@@ -13,7 +13,7 @@
 }
 
 .developer {
-  padding-bottom: 60px;
+  padding-bottom: 34px;
 
   @include media(0, $media_mobile) {
     padding-bottom: 36px;
@@ -21,6 +21,7 @@
 
   @include media(0, $media_mobile-small) {
     padding-top: 30px;
+    padding-bottom: 10px;
   }
   
   &__title {

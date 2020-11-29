@@ -51,23 +51,10 @@
 		background: $c_wild-sand;
 		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
 
-		// &::before {
-		// 	content: "";
-		// 	position: absolute;
-		// 	top: 50%;
-		// 	left: 50%;
-		// 	transform: translate(-50%, -50%);
-
-		// 	width: 120px;
-		// 	height: 144px;
-			
-		// 	background-image: url(/static/images/profile.svg);
-		// }
-
-		// @include media($media_mobile, $media_tablet) {
-		// 	width: 314px;
-		// 	margin-right: 76px;
-		// }
+		@include media($media_mobile, $media_tablet) {
+			width: 314px;
+			margin-right: 76px;
+		}
 
 		@include media(0, $media_mobile) {
 			width: 280px;
@@ -87,23 +74,21 @@
 			transform: translate(-50%, -50%);
 			max-width: 100%;
 			height: auto;
-			// height: 100%;
 		}
   }
   
   &__info {
-
-    margin-bottom: 30px;
+		margin-top: 1px;
+    margin-bottom: 31px;
   
     &-item {
-      
       &:not(:last-child) {
-        margin-bottom: 20px;
+        margin-bottom: 19.5px;
       }
     }
   
     &__field {
-      margin-right: 15px;
+      margin-right: 11px;
     }
   }
   
