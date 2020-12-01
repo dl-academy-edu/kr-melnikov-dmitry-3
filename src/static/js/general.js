@@ -48,10 +48,10 @@ function modalOpen(button, modal, form) {
 }
 
 function modalClose(button, modal, form) {
-  modal.classList.remove("show_js");
-  body.classList.remove("overflow_js");
   form.reset();
   setFormClear(form);
+  modal.classList.remove("show_js");
+  body.classList.remove("overflow_js");  
   button.focus();
 }
 
@@ -164,21 +164,6 @@ function checkTelephone(telephone) {
   return telephone.match(/^(\s*)?(\+)?([-_():=+]?\d[- _():=+]?){10,14}(\s*)?$/);
 }
 
-function inputError(input, button) {
-  if (input.hasAttribute("isError")) {
-    return;
-  }
-  input.setAttribute("isError", "");
-  input.classList.add("modal__input_error");
-  input.addEventListener("input", () => {
-    input.classList.remove("modal__input_error");
-    input.removeAttribute("isError");      
-  if (button.classList.contains("button_bad")){
-    button.classList.remove("button_bad");
-  }
-  });
-}
-
 function inputSuccess(input) {
   if (input.hasAttribute("isSuccess")) {
     return;
@@ -214,6 +199,21 @@ function textSuccess(input) {
     input.removeAttribute("issuccessText");
     });
   }
+}
+
+function inputError(input, button) {
+  if (input.hasAttribute("isError")) {
+    return;
+  }
+  input.setAttribute("isError", "");
+  input.classList.add("modal__input_error");
+  input.addEventListener("input", () => {
+    input.classList.remove("modal__input_error");
+    input.removeAttribute("isError");      
+  if (button.classList.contains("button_bad")){
+    button.classList.remove("button_bad");
+  }
+  });
 }
 
 function textError(input, error) {
@@ -264,8 +264,7 @@ function setFormClear(form) {
       input.classList.remove("modal__input_error");
       input.removeAttribute("isError");  
       input.removeAttribute("isErrorText");
-    }
-    if (input.hasAttribute("isSuccess")) {    
+    } else if (input.hasAttribute("isSuccess")) {    
       input.classList.remove("modal__input_success");
       input.removeAttribute("isSuccess");  
       input.removeAttribute("issuccessText");
@@ -369,7 +368,7 @@ function setValueToForm(form, data) {
 		const data = getFormData(e.target);
 		const errors = validateData(data);
 		setFormErrors(messageForm, errors);
-    console.log(errors); 
+    // console.log(errors); 
     if (Object.keys(errors).length === 0) {
       sendMessage(e);
     } else {return}
@@ -386,7 +385,7 @@ function setValueToForm(form, data) {
 			to: data.to,
 			body: JSON.stringify(data)
 		}
-		console.log(newData);
+		// console.log(newData);
 		fetchData({
 			method: "POST",
 			url: "/api/emails",
@@ -404,9 +403,15 @@ function setValueToForm(form, data) {
 					sendResult(document.querySelector(".modal-success_js"));
 				}, 2000);
 			} else {
-        setTimeout(function () {
-					modalClose(messageButton, messageModal, messageForm);
-          sendResult(document.querySelector(".modal-error_js"));
+        setTimeout(function () {         
+          let errors = {};      
+          // errors.to = `${res._message}`;      
+          errors.to = "This mail is already subscribed to the newsletter";
+          sendResult(document.querySelector(".modal-error_js"), errors.to); 
+          setFormClear(messageForm); 
+          setFormErrors(messageForm, errors);
+          // messageForm.querySelector(".send_js").removeAttribute("disabled");
+          messageForm.querySelector(".checkbox_js").checked = false;
 				  throw res;
 				}, 2000);        
 			}
@@ -414,7 +419,7 @@ function setValueToForm(form, data) {
 		})
 		.catch(err => {
 				setFormErrors(e.target, err.errors);
-				console.error(err.errors);
+				// console.error(err.errors);
 			  isLoading = false;
 		})
 	}
@@ -459,7 +464,7 @@ function setValueToForm(form, data) {
       const data = getFormData(e.target);
       const errors = validateData(data);
       setFormErrors(registerForm, errors);
-      console.log(errors);
+      // console.log(errors);
       if (Object.keys(errors).length === 0) {
         registerUser(e);
       } else {return}
@@ -550,48 +555,54 @@ function setValueToForm(form, data) {
     const data = getFormData(e.target);
     const errors = validateData(data);
     setFormErrors(loginForm, errors);
-    console.log(errors);
     if (Object.keys(errors).length === 0) {
-      loginUser(e);
+      loginUser(e);      
     } else {return}
   })
 
-function loginUser(e) {
-  e.preventDefault();
-  if(isLoading) {
-    return;
+  function loginUser(e) {
+    e.preventDefault();
+    if(isLoading) {
+      return;
+    }
+    isLoading = true;
+    const data = getFormData(e.target);
+    fetchData({
+      method: "POST",
+      url: "/api/users/login",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.success){
+        setTimeout(function () {
+          updateToken(res.data);
+          updateState(); 
+          modalClose(loginButton, loginModal, loginForm);
+          console.log("Вход выполнен, ID пользователя:" + res.data.userId);      
+          window.location.pathname = "/pages/profile/index.html";
+        }, 2000);
+      } else {        
+      setTimeout(function () {
+        let errors = {};      
+        // errors.email = `${res._message}`;      
+        errors.email = `"No user/password combination found"`;        
+        errors.password = "Please, check your password";
+        sendResult(document.querySelector(".modal-error_js"), errors.email);
+        setFormClear(loginForm);        
+        setFormErrors(loginForm, errors);
+        throw res;      
+      }, 2000);
+      }
+      isLoading = false;
+    })
+    .catch(err => {   
+      isLoading = false;
+    })
   }
-  isLoading = true;
-  const data = getFormData(e.target);
-  fetchData({
-    method: "POST",
-    url: "/api/users/login",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.json())
-  .then(res => {
-    if (res.success){
-      updateToken(res.data);
-      updateState(); 
-      modalClose(loginButton, loginModal, loginForm);
-      console.log("Вход выполнен, ID пользователя:" + res.data.userId);      
-      window.location.pathname = "/pages/profile/index.html";
-    } else {
-      modalClose(loginButton, loginModal, loginForm);
-      sendResult(document.querySelector(".modal-error_js"));
-      throw res;
-    }
-    isLoading = false;
-  })
-  .catch(err => {
-    setFormErrors(e.target, err.errors);
-    console.error(err.errors);
-    isLoading = false;
-  })
-}
   
   function validateData(data, errors = {}) {
     if(!checkEmail(data.email)) {
@@ -605,10 +616,14 @@ function loginUser(e) {
 })(); 
 
 //  Result of send form
-function sendResult(modal) {  
+function sendResult(modal, error = `“The form was sent but the server transmits an error”`) {  
   modal.classList.add("show_js");
   body.classList.add("overflow_js");
   let closeButton = modal.querySelector(".modal__close");  
+
+  if (modal === document.querySelector(".modal-error_js")) {
+    modal.querySelector(".postloader-text_js").innerText = `${error}`;
+  }
   
   closeButton.addEventListener("click", function (e) {
     e.preventDefault();

@@ -292,12 +292,22 @@
     }
   
     &_bad{
-      max-width: 475px;  
       color: $c_pomegranade;
+    }
+  }
 
-      @include media(0, 600px) {
-        max-width: 279px;
-      }
+  &__description {      
+    max-width: 290px;    
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 475px;
+    justify-content: center;
+
+    @include media(0, 600px) {
+      max-width: 279px;
     }
   }
 

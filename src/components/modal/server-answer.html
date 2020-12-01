@@ -1,14 +1,19 @@
 <!-- Form send success -->
 <div class="modal modal-success_js">
 	<form class="modal__form postloader" name="postloader-success">
-		<span class="postloader__text postloader__text_good">Form has been sent successfully</span>
+		<div class="postloader__content">
+			<span class="postloader__text postloader__text_good">Form has been sent successfully</span>
+		</div>
 		<button class="modal__close postloader__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
 	</form>
 </div>
 <!-- Form send error -->
 <div class="modal modal-error_js">
 	<form class="modal__form postloader" name="postloader-error">
-		<span class="postloader__text postloader__text_bad">The form was sent but the server transmits an error: “The form was sent but the server transmits an error”</span>
+		<div class="postloader__content">
+			<strong class="postloader__description postloader__text postloader__text_bad">The form was sent but the server transmits an error:</strong>
+			<span class="postloader__text postloader__text_bad postloader-text_js"></span>
+		</div>		
 		<button class="modal__close postloader__close" aria-label="Close button"><img class="modal__x" src="/static/images/close.svg" alt="Close button"></button>
 	</form>
 </div>
