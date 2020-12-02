@@ -2,7 +2,10 @@ const SERVER_URL = "https://academy.directlinedev.com";
 const VERSION_API = "1.0.0";
 const body = document.querySelector("body");
 const logout = document.querySelector(".logout_js");
+let serverAnswer = false;
 let isLoading = false;
+let loader = false;
+
 
 updateState(); 
 
@@ -38,12 +41,14 @@ function modalOpen(button, modal, form) {
     closeButton.addEventListener("click", function (e) {
       e.preventDefault();
       modalClose(button, modal, form);
-    });
+    });    
     window.addEventListener("keydown", function (e) {
       if (e.code === "Escape" && modal.classList.contains("show_js")) {
-        modalClose(button, modal, form);
+        if (serverAnswer === false) {
+          modalClose(button, modal, form);
+        } 
       }
-    });
+    });   
   }   
 }
 
@@ -145,12 +150,20 @@ function checkAccept(form) {
   })
 };
 
-// Preloader
+// Preloaders
 
 function preloaderCreator() {
-	return `<div class="loader-wrapper">
-  <div class="loader">
-    <div class="loader-line"></div>
+	return `<div class="loader">
+  <div class="loader__inner">
+    <div class="loader__object"></div>
+  </div>
+</div>`;
+}
+
+function formPreloaderCreator() {
+	return `<div class="loader-form">
+  <div class="loader__inner">
+    <div class="loader__object"></div>
   </div>
 </div>`;
 }
@@ -370,6 +383,11 @@ function setValueToForm(form, data) {
 		setFormErrors(messageForm, errors);
     // console.log(errors); 
     if (Object.keys(errors).length === 0) {
+      if (loader === false) {
+        loader = true;
+        messageForm.insertAdjacentHTML("beforeend", `<div class="preloader"></div>`);
+        body.querySelector(".preloader").innerHTML = formPreloaderCreator();
+      }
       sendMessage(e);
     } else {return}
 	})
@@ -410,7 +428,6 @@ function setValueToForm(form, data) {
           sendResult(document.querySelector(".modal-error_js"), errors.to); 
           setFormClear(messageForm); 
           setFormErrors(messageForm, errors);
-          // messageForm.querySelector(".send_js").removeAttribute("disabled");
           messageForm.querySelector(".checkbox_js").checked = false;
 				  throw res;
 				}, 2000);        
@@ -427,7 +444,9 @@ function setValueToForm(form, data) {
   function validateData(data, errors = {}) {
 		if(data.name === "") {
 			errors.name = "Please enter your name";
-		}
+		} else if(data.name.length < 2 || data.name.length >= 20) {
+      errors.name = "Your name is not valid, check it";
+    }
 		if(data.subject === "") {
 			errors.subject = "Please enter a message subject";
 		}
@@ -466,6 +485,11 @@ function setValueToForm(form, data) {
       setFormErrors(registerForm, errors);
       // console.log(errors);
       if (Object.keys(errors).length === 0) {
+      if (loader === false) {
+        loader = true;
+        registerForm.insertAdjacentHTML("beforeend", `<div class="preloader"></div>`);
+        body.querySelector(".preloader").innerHTML = formPreloaderCreator();        
+      }
         registerUser(e);
       } else {return}
     })
@@ -497,8 +521,13 @@ function setValueToForm(form, data) {
           }, 2000);
         } else {
           setTimeout(function () {
-            modalClose(registerButton, registerModal, registerForm);
-            sendResult(document.querySelector(".modal-error_js"));
+            let errors = {};      
+            // errors.email = `${res.errors.email}`;      
+            errors.email = "User with thit email is already registered"; 
+            sendResult(document.querySelector(".modal-error_js"), errors.email);
+            setFormClear(registerForm);        
+            setFormErrors(registerForm, errors);
+            registerForm.querySelector(".checkbox_js").checked = false;
             throw res;
           }, 2000);
         }
@@ -517,18 +546,26 @@ function setValueToForm(form, data) {
       }
       if(data.name === "") {
         errors.name = "Please enter your name";
+      } else if(data.name.length < 2 || data.name.length >= 20) {
+        errors.name = "Your name is not valid, check it";
       }
       if(data.surname === "") {
         errors.surname = "Please enter your surname";
-      }
-      if(data.password.length < 8) {
-        errors.password = "Your password too short";
+      } else if(data.surname.length < 2 || data.surname.length >= 20) {
+        errors.surname = "Your surname is not valid, check it";
+      }      
+      if (data.password === "") {
+        errors.password = "Please enter your password";
+      } else if(data.password.length < 8) {
+        errors.password = "Your password is too short";
       }
       if(data.passwordRepeat !== data.password || data.passwordRepeat === "") {
-        errors.passwordRepeat = "Please repeat your password";
+        errors.passwordRepeat = "Please repeat your password correctly";
       }
       if(data.location === "") {
         errors.location = "Please enter your location";
+      } else if(data.location.length < 2 || data.location.length >= 20) {
+        errors.location = "Location name is not valid";
       }
       if(isNaN(data.age) || data.age === "") {
         errors.age = "Please enter your age";
@@ -556,6 +593,11 @@ function setValueToForm(form, data) {
     const errors = validateData(data);
     setFormErrors(loginForm, errors);
     if (Object.keys(errors).length === 0) {
+      if (loader === false) { 
+        loader = true;       
+        loginForm.insertAdjacentHTML("beforeend", `<div class="preloader"></div>`);
+        body.querySelector(".preloader").innerHTML = formPreloaderCreator();
+      }
       loginUser(e);      
     } else {return}
   })
@@ -589,7 +631,7 @@ function setValueToForm(form, data) {
       setTimeout(function () {
         let errors = {};      
         // errors.email = `${res._message}`;      
-        errors.email = `"No user/password combination found"`;        
+        errors.email = "No user/password combination found";        
         errors.password = "Please, check your password";
         sendResult(document.querySelector(".modal-error_js"), errors.email);
         setFormClear(loginForm);        
@@ -610,30 +652,36 @@ function setValueToForm(form, data) {
     }
     if(data.password === "") {
       errors.password = "Please enter your password";
+    } else if(data.password.length < 8) {
+      errors.password = "Your password is too short, check it";
     }
     return errors;
     }
 })(); 
 
 //  Result of send form
-function sendResult(modal, error = `“The form was sent but the server transmits an error”`) {  
+function sendResult(modal, error = `The form was sent but the server transmits an error`) {
+  serverAnswer = true;
+  loader = false;
+  body.querySelector(".preloader").remove();  
   modal.classList.add("show_js");
-  body.classList.add("overflow_js");
   let closeButton = modal.querySelector(".modal__close");  
 
   if (modal === document.querySelector(".modal-error_js")) {
-    modal.querySelector(".postloader-text_js").innerText = `${error}`;
+    modal.querySelector(".postloader-text_js").innerText = `The form was sent but the server transmits an error: "${error}"`;
   }
   
   closeButton.addEventListener("click", function (e) {
     e.preventDefault();
-    modal.classList.remove("show_js");
-    body.classList.remove("overflow_js");
+    modal.classList.remove("show_js");  
+    serverAnswer = false;
   });
   window.addEventListener("keydown", function (e) {
     if (e.code === "Escape" && modal.classList.contains("show_js")) {
-      modal.classList.remove("show_js");
-      body.classList.remove("overflow_js");
+      modal.classList.remove("show_js");       
+      setInterval(() => {      
+        serverAnswer = false; 
+      }, 2000);
     }
   });
 }

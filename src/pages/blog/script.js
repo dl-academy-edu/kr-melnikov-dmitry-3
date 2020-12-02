@@ -9,8 +9,9 @@ let data = {
 	page: 0
 };
 
-(function () {
+(function () {	
 	tagsBox.innerHTML = preloaderCreator();
+	postBox.innerHTML = preloaderCreator();
 	getPosts(getFormData(form));
 
 	let xhr = new XMLHttpRequest();
@@ -52,13 +53,13 @@ let data = {
 //Work with Forms and URL
 	function getContent(e){
 		e.preventDefault();
+
+		postBox.innerHTML = preloaderCreator();
 		let page = data.page || 0;
 		data = getFormData(form);
 		data.page = page;
 		data.show = +data.show || 0;
 		setParamsToURL(data);
-
-		postBox.innerHTML = preloaderCreator();
 
 		getPosts(data);
 	}

@@ -36,6 +36,8 @@ logout.addEventListener("click", () => {
 		const errors = validateData(data);
 		setFormErrors(changePasswordForm, errors);
 		if (Object.keys(errors).length === 0) {
+      changePasswordForm.insertAdjacentHTML("beforeend", `<div class="preloader"></div>`);
+      body.querySelector(".preloader").innerHTML = formPreloaderCreator();
       fetchData({
 				method: "PUT",
 				body: body,
@@ -72,11 +74,13 @@ logout.addEventListener("click", () => {
 		if(data.oldPassword === "") {
 			errors.oldPassword = "Your password is incorrect";
 		}
-		if(data.newPassword.length < 8) {
-			errors.newPassword = "Your new password too short";
+		if (data.newPassword === "") {
+			errors.newPassword = "Please enter your new password";
+		} else if(data.newPassword.length < 8) {
+			errors.newPassword = "Your new password is too short";
 		}
 		if(data.newPasswordRepeat !== data.newPassword || data.newPasswordRepeat === "") {
-			errors.newPasswordRepeat = "Your password is incorrect";
+			errors.newPasswordRepeat = "Your password is incorrect, check it";
 		}
 		return errors;
 	}
@@ -101,7 +105,8 @@ logout.addEventListener("click", () => {
 		setFormErrors(changeDataForm, errors);
 		console.log(errors);
 		if (Object.keys(errors).length === 0) {
-			// changeUserData(e);
+      changeDataForm.insertAdjacentHTML("beforeend", `<div class="preloader"></div>`);
+      body.querySelector(".preloader").innerHTML = formPreloaderCreator();
 			if(isLoading) {
 				return;
 			}
@@ -150,12 +155,18 @@ logout.addEventListener("click", () => {
 		}
 		if(data.name === "") {
 			errors.name = "Please enter your name";
+		} else if(data.name.length < 2 || data.name.length >= 20) {
+			errors.name = "Your name is not valid, check it";
 		}
 		if(data.surname === "") {
 			errors.surname = "Please enter your surname";
-		}
+		} else if(data.surname.length < 2 || data.surname.length >= 20) {
+			errors.surname = "Your surname is not valid, check it";
+		}   
 		if(data.location === "") {
 			errors.location = "Please enter your location";
+		} else if(data.location.length < 2 || data.location.length >= 20) {
+			errors.location = "Location name is not valid";
 		}
 		if(isNaN(data.age) || data.age === "") {
 			errors.age = "Please enter your age";
