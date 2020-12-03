@@ -107,6 +107,12 @@
 }
 
 .avatar {
+
+	&-cell {
+		@include media($media_mobile, 0) {
+			width: 48%;
+    }
+	}
 &__input {
 	position: relative;
 	display: flex;
@@ -121,11 +127,6 @@
   outline: none;
 
   transition: border-color $tr_duration $tr_easing;
-
-	// height: 50px;
-	// overflow: hidden;
-	// word-wrap: normal;
-	// text-overflow: ellipsis;
 
 	&:hover{
 		border-color: $c_gray;

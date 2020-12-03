@@ -87,6 +87,10 @@
     width: 100%;
     margin-bottom: 20px;
     display: inline-block;
+
+    &_checkbox {
+      margin-top: 4px;
+    }
   }
 
   &__text {
@@ -236,8 +240,20 @@
     }
   }
 
-  button[type="submit"] {
+  &__button {
     padding: 7.5px 17.5px;
+
+    &_signin {
+      margin-top: 11px;
+    }
+
+    &_changepassword {
+      margin-top: 7px;
+    }
+
+    &_changedata {
+      margin-top: 9.5px;
+    }
   }
 
   &__close {
