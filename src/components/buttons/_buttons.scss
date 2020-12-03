@@ -1,0 +1,182 @@
+@import "../mixins";
+@import "../colors";
+@import "../vars";
+
+.button {
+  padding: 7.5px 26.5px;
+  display: block;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  color: $c_black;
+
+  background-color: transparent;
+  border: 2.5px solid $c_black;
+  border-radius: 30px;
+  outline: none;
+  cursor: pointer;
+
+  transition: background-color $tr_duration $tr_easing,
+    color $tr_duration $tr_easing;
+
+  &:hover,
+  &:focus {
+    color: $c_white;
+    background-color: $c_black;
+  }
+
+  &_gray-link {
+    border: none;
+    outline: none;
+    padding: 0;
+    color: $c_gray;
+
+    &:hover,
+    &:focus {
+      color: $c_black;
+      background-color: transparent;
+    }
+  }
+
+  &_fill {
+    color: $c_white;
+    background-color: $c_black;
+
+    &:hover,
+    &:focus {
+      color: $c_black;
+      background-color: transparent;
+    }
+  }
+
+  &_bad {
+    color: $c_pomegranade;
+    background-color: transparent;
+
+    border-color: $c_pomegranade;
+
+    &:hover,
+    &:focus {
+      color: $c_white;
+      background-color: $c_pomegranade;
+    }
+  }
+
+  &_good {
+    color: $c_malachite;
+    background-color: transparent;
+
+    border-color: $c_malachite;
+
+    &:hover,
+    &:focus {
+      color: $c_white;
+      background-color: $c_malachite;
+    }
+  }
+
+  &:disabled {
+    color: $c_mercury;
+    background-color: transparent;
+
+    border-color: $c_mercury;
+    cursor: url(static/images/cursor_disabled.svg), not-allowed; 
+  }
+}
+
+.switch-button {
+  position: relative;
+
+  width: 42px;
+  height: 42px;
+
+  background-color: transparent;
+  border: 2.5px solid $c_black;
+  border-radius: 50%;
+
+  outline: none;
+  cursor: pointer;
+
+  transition: opacity $tr_duration $tr_easing;
+
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
+
+  &_right {
+    transform: rotate(180deg);
+  }
+
+  &__img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:disabled {
+    opacity: 0.1;
+
+    cursor: url(static/images/cursor_disabled.svg), not-allowed; 
+
+    &:hover,
+    &:focus {
+      opacity: 0.1;
+    }
+  }
+}
+
+.burger-button {
+  position: absolute;
+  top: 40px;
+  right: 5px;
+
+  width: 42px;
+  height: 42px;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  transition: opacity $tr_duration $tr_easing;
+
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
+
+  @include media($media_mobile-small, 0) {
+    display: none;
+  }
+}
+
+.button-to-top {
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  right: 10px;
+  width: 42px;
+  height: 42px;
+  z-index: 2;
+
+  background-color: $c_white;
+  border: 2.5px solid $c_black;
+  border-radius: 50%;
+
+  outline: none;
+  cursor: pointer;
+  transition: opacity $tr_duration $tr_easing;
+
+  transform: rotate(90deg);
+}

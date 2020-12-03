@@ -1,0 +1,43 @@
+<div class="slider">
+  <div class="slider__wrapper">
+    <div class="slider__inner-wrapper">
+      @@include('slider/slide.html', {
+      "class": "slider__slide",  
+      "img": "slider",
+      "res": ".jpg",
+      "name": "My photo"
+      })
+      @@include('slider/slide.html', {
+      "class": "slider__slide",  
+      "img": "slider",
+      "res": ".jpg",
+      "name": "My photo"
+      })
+      @@include('slider/slide.html', {
+      "class": "slider__slide",  
+      "img": "slider",
+      "res": ".jpg",
+      "name": "My photo"
+      })
+      @@include('slider/slide.html', {
+      "class": "slider__slide",  
+      "img": "slider",
+      "res": ".jpg",
+      "name": "My photo"
+      })
+    </div>
+  </div>
+  <div class="slider__control">
+    @@include('buttons/index.html', { 
+      "type": "switch",
+      "direction": "left",
+      "class": "slider__button slider__button_previous"
+    })
+    <div class="slider__pagination"></div>
+    @@include('buttons/index.html', { 
+      "type": "switch", 
+      "direction": "right",
+      "class": "slider__button slider__button_next" 
+    })
+  </div>
+</div>

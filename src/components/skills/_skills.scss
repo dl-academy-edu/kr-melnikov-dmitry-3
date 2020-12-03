@@ -1,0 +1,267 @@
+@import "../mixins";
+@import "../colors";
+@import "../vars";
+
+@keyframes progress-html {
+  0% {
+    right: 100%;
+  }
+
+  100% {
+    right: 15%;
+  }
+}
+
+@keyframes progress-css {
+  0% {
+    right: 100%;
+  }
+
+  100% {
+    right: 45%;
+  }
+}
+
+@keyframes progress-js {
+  0% {
+    right: 100%;
+  }
+
+  100% {
+    right: 95%;
+  }
+}
+
+@keyframes progress-git {
+  0% {
+    right: 100%;
+  }
+
+  100% {
+    right: 85%;
+  }
+}
+
+@keyframes progress-figma {
+  0% {
+    right: 100%;
+  }
+
+  100% {
+    right: 20%;
+  }
+}
+
+.skills {
+  &__content {
+    padding: 60px 0 30px 0;
+
+    @include media($media_mobile, $media_tablet) {
+      padding: 60px 0 20px;
+    }
+
+    @include media($media_mobile-small, $media_mobile) {
+      padding: 40px 0 9px 0;
+    }
+
+    @include media(0, $media_mobile-small) {
+      padding: 40px 0 0 0;
+    }
+  }
+
+  &__title {
+    margin-bottom: 20px;
+
+    text-align: center;
+
+    @include media(0, $media_mobile) {
+      margin-bottom: 11px;
+    }
+  }
+
+  &__text {
+    width: 100%;
+    margin-bottom: 52px;
+    display: inline-block;
+
+    text-align: center;
+
+    @include media($media_mobile-small, $media_mobile) {
+      margin-bottom: 31px;
+    }
+    @include media(0, $media_mobile-small) {
+      margin-bottom: 41px;
+    }
+  }
+
+  &__list {
+    margin: 0 -10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__item {
+    width: 185px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include media($media_mobile, $media_tablet) {
+      width: 147px;
+      margin-bottom: 41px;
+    }
+
+    @include media(0, $media_mobile) {
+      width: 130px;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__img {
+    margin-bottom: 16px;
+  }
+
+  &__description {
+    margin-bottom: 24px;
+    display: inline-block;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    color: $c_gray;
+
+    @include media($media_mobile, $media_tablet) {
+      margin-bottom: 23px;
+    }
+  }
+
+  &__progress-box {
+    display: flex;
+    align-items: center;
+  }
+
+  &__percent {
+    margin-right: 12px;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    color: $c_gray;
+  }
+
+  &__bar {
+    position: relative;
+    justify-self: flex-end;
+    width: 142px;
+    height: 9px;
+
+    background-color: $c_mercury;
+
+    @include media($media_mobile, $media_tablet) {
+      width: 111px;
+    }
+
+    @include media(0, $media_mobile) {
+      width: 94px;
+    }
+
+    &__html {
+      &_animation {
+        &::after {
+          position: absolute;
+          top: 0;
+          right: 15%;
+          bottom: 0;
+          left: 0;
+          content: "";
+  
+          background-color: $c_black;
+          animation-timing-function: linear;
+          animation-iteration-count: 1;
+          animation-duration: 8.5s;
+          animation-name: progress-html; 
+        }
+      }
+    }
+
+    &__css {
+      &_animation {
+        &::after {
+          position: absolute;
+          top: 0;
+          right: 45%;
+          bottom: 0;
+          left: 0;
+          content: "";
+  
+          background-color: $c_black;
+          animation-timing-function: linear;
+          animation-iteration-count: 1;
+          animation-duration: 8.25s;
+          animation-name: progress-css;
+        }
+      }
+    }
+
+    &__js {
+      &_animation {
+        &::after {
+          position: absolute;
+          top: 0;
+          right: 95%;
+          bottom: 0;
+          left: 0;
+          content: "";
+  
+          background-color: $c_black;
+          animation-timing-function: linear;
+          animation-iteration-count: 1;
+          animation-duration: 8s;
+          animation-name: progress-js;
+        }
+      }
+    }
+
+    &__git {
+      &_animation {
+        &::after {
+          position: absolute;
+          top: 0;
+          right: 85%;
+          bottom: 0;
+          left: 0;
+          content: "";
+  
+          background-color: $c_black;
+          animation-timing-function: linear;
+          animation-iteration-count: 1;
+          animation-duration: 8.25s;
+          animation-name: progress-git;
+        }
+      }      
+    }
+
+    &__figma {
+      &_animation {
+        &::after {
+          position: absolute;
+          top: 0;
+          right: 20%;
+          bottom: 0;
+          left: 0;
+          content: "";
+  
+          background-color: $c_black;
+          animation-timing-function: linear;
+          animation-iteration-count: 1;
+          animation-duration: 8s;
+          animation-name: progress-figma;
+        }
+      }      
+    }
+  }
+}

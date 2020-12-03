@@ -1,0 +1,82 @@
+<footer class="footer">    
+  @@include('buttons/index.html', {
+    "type": "burger"
+  })
+  @@include('buttons/index.html', {
+    "type": "to-top"
+  })  
+  @@include('modal/index.html')
+  <div class="footer__content container">
+    <h2 class="footer__title">Contacts</h2>
+    <p class="footer__text">
+      Want to know more or just chat? You are welcome!
+    </p>
+    @@include('buttons/index.html', {
+      "type": "button",
+      "style": "fill",
+      "text": "Send message",
+      "class": "footer__button-send message_js"
+    })
+    <ul class="footer__contacts">
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Instagram",
+          "class": "footer__contacts__link",
+          "href": "https://www.instagram.com/paradoxevidens/"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Vk",
+          "class": "footer__contacts__link",
+          "href": "https://vk.com/id175370762"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Telegram",
+          "class": "footer__contacts__link",
+          "href": "https://t.me/Evidens"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Mail",
+          "class": "footer__contacts__link",
+          "href": "mailto:paradoxevi@gmail.com"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "GitHub",
+          "class": "footer__contacts__link",
+          "href": "https://github.com/Evidens2150"
+        })
+      </li>
+      <li class="footer__contacts__item">
+        @@include('buttons/index.html', {
+          "type": "link",
+          "style": "normal",
+          "text": "Phone",
+          "class": "footer__contacts__link",
+          "href": "tel:+79397079391"
+        })
+      </li>
+    </ul>
+    <div class="footer__description">
+      <p class="footer__description__text">Design by</p>
+      <a class="footer__description__link" href="https://directline.digital/">DL Academy</a>
+      <p class="footer__description__text">Program code from Dmitryi</p>
+    </div>
+  </div>
+</footer>

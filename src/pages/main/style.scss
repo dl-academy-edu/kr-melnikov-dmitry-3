@@ -1,0 +1,54 @@
+@import "../../components/colors";
+@import "../../components/vars";
+@import "../../components/mixins";
+
+.header-nav__link[href="/"] {
+  color: $c_black;
+  transition: opacity $tr_duration $tr_easing;
+
+      &:hover,
+      &:focus {
+        opacity: .7;
+      }
+}
+
+.developer {
+  padding-bottom: 34px;
+
+  @include media(0, $media_mobile) {
+    padding-bottom: 36px;
+  }
+
+  @include media(0, $media_mobile-small) {
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
+  
+  &__title {
+    max-width: 280px;
+    margin-right: 37px;
+    display: inline-block;
+
+    @include media($media_mobile, $media_tablet) {
+      margin-right: 34px;
+    }
+
+    @include media(0, $media_mobile) {
+      margin-right: 50px;
+      margin-bottom: 21px;
+    }
+
+    @include media(0, $media_mobile-small) {
+      margin-right: 0;
+    }
+  }
+
+  &__description {
+    max-width: 226px;
+    display: inline-block;
+
+    @include media(0, $media_mobile) {
+    	max-width: 205px;
+    }
+  }
+}

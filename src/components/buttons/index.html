@@ -1,0 +1,97 @@
+@@if (type === "button" && style === "normal") {
+	<button class="button @@class">@@text</button>
+}
+
+@@if (type === "button" && style === "fill") {
+	<button class="button button_fill @@class">@@text</button>
+}
+
+@@if (type === "button" && style === "normal_disabled") {
+	<button class="button @@class" disabled>@@text</button>
+}
+
+@@if (type === "button" && style === "fill_disabled") {
+	<button class="button @@class" disabled>@@text</button>
+}
+
+@@if (type === "button" && style === "good") {
+	<button class="button button_good @@class">@@text</button>
+}
+
+@@if (type === "button" && style === "bad") {
+	<button class="button button_bad @@class">@@text</button>
+}
+
+@@if (type === "button" && style === "gray") {
+	<button class="button button_gray-link @@class">@@text</button>
+}
+
+
+@@if (type === "submit") {
+	<button class="button @@class" type="submit">@@text</button>
+}
+
+@@if (type === "submit_disabled") {
+	<button class="button @@class" type="submit" disabled>@@text</button>
+}
+
+
+@@if (type === "reset") {
+	<button class="button @@class" type="reset">@@text</button>
+}
+
+@@if (type === "reset_disabled") {
+	<button class="button @@class" type="reset" disabled>@@text</button>
+}
+
+
+
+@@if (type === "link" && style === "normal") {
+	<a href="@@href" class="button @@class">@@text</a>
+}
+
+@@if (type === "link" && style === "fill") {
+	<a href="@@href" class="button button_fill @@class">@@text</a>
+}
+
+@@if (type === "link" && style === "gray") {
+	<a href="@@href" class="button button_gray-link @@class">@@text</a>
+}
+
+
+
+@@if (type === "burger") {
+	<button class="burger-button button-open-menu_js" aria-label="Navigation menu">
+    <img class="switch-button__img" src="/static/images/menu.svg" alt="Navigation menu">
+  </button>
+}
+
+@@if (type === "to-top") {
+	<button class="button-to-top button-to-top_js" aria-label="To the top">
+		<img class="switch-button__img" src="/static/images/arrow.svg" alt="To the top">
+	</button>
+}
+
+@@if (type === "switch" && direction === "left") {
+	<button class="switch-button @@class" aria-label="Switch Left">
+		<img class="switch-button__img" src="/static/images/arrow.svg" alt="Switch Left">
+	</button>
+}
+
+@@if (type === "switch_disabled" && direction === "left") {
+	<button class="switch-button switch-button_disabled @@class" aria-label="Switch Left" disabled>
+		<img class="switch-button__img" src="/static/images/arrow.svg" alt="Switch Left">
+	</button>
+}
+
+@@if (type === "switch" && direction === "right") {
+	<button class="switch-button switch-button_right @@class" aria-label="Switch Right">
+		<img class="switch-button__img" src="/static/images/arrow.svg" alt="Switch Right"">
+	</button>
+}
+
+@@if (type === "switch_disabled" && direction === "right") {
+	<button class="switch-button switch-button_right switch-button_disabled @@class" aria-label="Switch Right" disabled>
+		<img class="switch-button__img" src="/static/images/arrow.svg" alt="Switch Right">
+	</button>
+}
